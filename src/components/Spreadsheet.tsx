@@ -14,7 +14,7 @@ import { HotTable } from '@handsontable/react-wrapper';
 
 interface SpreadsheetProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any[];
+  data: any[] | undefined;
 }
 
 export function Spreadsheet({ data }: SpreadsheetProps) {

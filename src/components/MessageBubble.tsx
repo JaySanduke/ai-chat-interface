@@ -2,8 +2,13 @@
 
 import { Message } from '@/app/page';
 import { Button } from '@/components/ui/button';
-import { LoadingSpinner } from '@/components/ui/loader';
-import { Copy, ThumbsUp, ThumbsDown, Sparkles, FileText } from 'lucide-react';
+import { Copy, ThumbsUp, ThumbsDown, Sparkles, FileText, Loader2 } from 'lucide-react';
+import { DocumentHeader } from '@/components/DocumentHeader';
+import { Spreadsheet } from '@/components/Spreadsheet';
+
+import { motion, AnimatePresence } from "framer-motion";
+import { useContext, useEffect, useState } from 'react';
+import { CanvasDataContext, CanvasDispatchContext } from '@/app/contexts/canvasDataContext';
 
 interface MessageBubbleProps {
   message: Message;
@@ -11,6 +16,18 @@ interface MessageBubbleProps {
 
 export function MessageBubble({ message }: MessageBubbleProps) {
   const isUser = message.type === 'user';
+
+  const [messageHHeaders, setMessageHHeaders] = useState<unknown[]>([]);
+
+  const isDocumentVisible = useContext(CanvasDataContext).isCanvasDocumentVisible;
+
+  const dispatch = useContext(CanvasDispatchContext);
+
+  useEffect(() => {
+    if (message?.documentContent?.data) {
+      setMessageHHeaders(message.documentContent.data);
+    }
+  }, [message, isDocumentVisible]);
 
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
@@ -34,15 +51,14 @@ export function MessageBubble({ message }: MessageBubbleProps) {
             : 'bg-transparent text-zinc-300'
             }`}>
             {message.status && (
-              <div className="flex items-center space-x-2 mb-2 text-sm border border-zinc-700 rounded-lg p-2 text-zinc-400">
-                {message.status === 'creating' ? (
+              <div className="relative flex flex-col justify-center space-x-2 mb-2 text-sm border border-zinc-700 rounded-lg p-2 text-zinc-400">
+                {message.status !== 'creating' ? (
                   <div className='flex flex-1 items-start space-x-2'>
                     <div className='flex flex-1'>
-                      <span>Creating Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga vitae, eius eaque magnam iusto nihil minima nesciunt esse, nisi laborum, enim natus eveniet ullam exercitationem debitis sapiente id voluptatem? Nostrum! &quot;{message.documentTitle}&quot;</span>
+                      <span>Creating &quot;{message.documentTitle}&quot;</span>
                     </div>
                     <div className='flex flex-shrink-0 p-1'>
-                      {/* <Loader  fill='none' stroke='currentColor' className="h-5 w-5 fill-none stroke-current animate-spin  bg-transparent from-blue-600 to-sky-400 to-50%" /> */}
-                      <LoadingSpinner></LoadingSpinner>
+                      <Loader2 className="size-5 animate-spin text-zinc-400" />
                     </div>
                   </div>
                 ) : (
@@ -51,6 +67,29 @@ export function MessageBubble({ message }: MessageBubbleProps) {
                     <span>Created &quot;{message.documentTitle}&quot;</span>
                   </>
                 )}
+
+                <AnimatePresence>
+                  {!isDocumentVisible && <motion.div
+                    layoutId="spreadsheet-box"
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, ease: 'easeInOut' }}
+                    className='flex border flex-col min-h-80 w-full'>
+                    <DocumentHeader
+                      title={message.documentContent?.title}
+                      subtitle={message.documentContent?.subtitle}
+                      onClose={() => { }}
+                    />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="mt-2 bg-transparent border-zinc-700 hover:border-zinc-300 hover:bg-transparent text-zinc-400 hover:text-zinc-300"
+                      onClick={() => dispatch({type: 'set', payload: true})}>full</Button>
+                    <div className="flex w-full h-full">
+                      {JSON.stringify(message.documentContent?.data)}
+                      <Spreadsheet data={messageHHeaders} />
+                    </div>
+                  </motion.div>}
+                </AnimatePresence>
               </div>
             )}
             <p className="leading-relaxed overflow-hidden whitespace-normal break-words">{message.content}</p>

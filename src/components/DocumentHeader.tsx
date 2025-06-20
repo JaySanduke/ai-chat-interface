@@ -2,8 +2,8 @@ import { Button } from '@/components/ui/button';
 import { X, RotateCcw, RotateCw, Copy } from 'lucide-react';
 
 interface DocumentHeaderProps {
-    title: string;
-    subtitle: string;
+    title: string | undefined;
+    subtitle: string | undefined;
     onClose: () => void;
 }
 
@@ -12,7 +12,7 @@ export function DocumentHeader({ title, subtitle, onClose }: DocumentHeaderProps
         <div className="flex items-center justify-between p-3 border-b border-zinc-800">
             <div className="flex items-start space-x-3">
                 <Button
-                size={"icon"}
+                    size={"icon"}
                     onClick={onClose}
                     className="size-8 p-0 bg-zinc-950 hover:bg-zinc-950 text-zinc-300 hover:text-zinc-100"
                 >
