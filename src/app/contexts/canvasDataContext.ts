@@ -7,8 +7,6 @@ export type canvasDocument = {
   data: any[];
 }
 
-
-// Use the same action type as in your reducer
 export type DocumentViewerAction =
   { type: 'toggle' }
   | { type: 'set'; payload?: boolean }
@@ -26,6 +24,4 @@ export const CanvasDataContext = createContext<{
     isCanvasDocumentVisible: false,
 });
 
-export const CanvasDispatchContext = createContext<React.Dispatch<DocumentViewerAction>>(() => {
-    // Default dispatch function does nothing
-});
+export const CanvasDispatchContext = createContext<React.Dispatch<DocumentViewerAction>>(() => {});

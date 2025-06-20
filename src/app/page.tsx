@@ -183,6 +183,7 @@ export default function Home() {
               onSendMessage={handleSendMessage}
             />
             <DocumentViewerPanel
+              documentMetadata={documentViewerState.metadata}
               isVisible={documentViewerState.isCanvasDocumentVisible}
               document={documentViewerState.canvasData}
               onClose={handleCloseDocument}
