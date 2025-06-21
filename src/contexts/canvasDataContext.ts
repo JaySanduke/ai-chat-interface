@@ -14,14 +14,29 @@ export type DocumentViewerAction =
   | { type: 'setMetadata'; payload?: unknown | null }
   | { type: 'reset' };
 
+
+export type documentMetadataType = {
+  rect: {
+    width: number;
+    height: number;
+    top: number;
+    bottom: number;
+    right: number;
+    left: number;
+  },
+  refElementProperties: {
+    borderRadius: string | number;
+  },
+};
+
 export const CanvasDataContext = createContext<{
-    canvasData: canvasDocument | null;
-    metadata: unknown | null;
-    isCanvasDocumentVisible: boolean;
+  canvasData: canvasDocument | null;
+  metadata: unknown | null;
+  isCanvasDocumentVisible: boolean;
 }>({
-    canvasData: null,
-    metadata: null,
-    isCanvasDocumentVisible: false,
+  canvasData: null,
+  metadata: null,
+  isCanvasDocumentVisible: false,
 });
 
-export const CanvasDispatchContext = createContext<React.Dispatch<DocumentViewerAction>>(() => {});
+export const CanvasDispatchContext = createContext<React.Dispatch<DocumentViewerAction>>(() => { });

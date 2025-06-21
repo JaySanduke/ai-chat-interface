@@ -5,7 +5,7 @@ import { Header } from '@/components/Header';
 import { ChatPanel } from '@/components/ChatPanel';
 import { DocumentViewerPanel } from '@/components/DocumentViewer';
 
-import { CanvasDataContext, CanvasDispatchContext, DocumentViewerAction } from '@/contexts/canvasDataContext';
+import { CanvasDataContext, CanvasDispatchContext, documentMetadataType, DocumentViewerAction } from '@/contexts/canvasDataContext';
 
 export interface Message {
   id: string;
@@ -31,7 +31,7 @@ export default function Home() {
     (
       state: {
         canvasData: canvasDocument | null;
-        metadata: unknown | null;
+        metadata: documentMetadataType | null;
         isCanvasDocumentVisible: boolean;
       },
       action: DocumentViewerAction
@@ -45,17 +45,17 @@ export default function Home() {
         case 'set':
           return {
             ...state,
-            isCanvasDocumentVisible: action.payload ?? false,
+            isCanvasDocumentVisible: action.payload as boolean ?? false,
           };
         case 'setCanvasData':
           return {
             ...state,
-            canvasData: action.payload ?? null,
+            canvasData: action.payload as canvasDocument ?? null,
           };
         case 'setMetadata':
           return {
             ...state,
-            metadata: action.payload ?? null,
+            metadata: action.payload as documentMetadataType ?? null,
           };
         case 'reset':
           return {

@@ -2,25 +2,12 @@
 
 import { DocumentHeader } from '@/components/DocumentHeader';
 import { Spreadsheet } from '@/components/Spreadsheet';
+import { documentMetadataType } from '@/contexts/canvasDataContext';
 
 import { motion, AnimatePresence } from "framer-motion";
 
-type documentMetadata = {
-  rect: {
-    width: number;
-    height: number;
-    top: number;
-    bottom: number;
-    right: number;
-    left: number;
-  },
-  refElementProperties: {
-    borderRadius: string | number;
-  };
-}
-
 interface DocumentViewerPanelProps {
-  documentMetadata: documentMetadata | null;
+  documentMetadata: documentMetadataType | null;
   isVisible: boolean;
   document: {
     title: string;
