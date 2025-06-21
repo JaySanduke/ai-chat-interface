@@ -44,7 +44,7 @@ export function DocumentHeader({ title, subtitle, data, isDocumentVisible, isCre
                 </Button>
             </div> : <div className="flex items-center gap-2">
                 <Button size={"icon"} onClick={() => {
-                    dispatch({ type: 'setCanvasData', payload: { title, subtitle, data } });
+                    dispatch({ type: 'setCanvasData', payload: { title: title ?? '', subtitle: subtitle ?? '', data: data ?? [] } });
                     dispatch({ type: 'set', payload: true });
                 }} className="size-8 p-0 bg-transparent rounded-sm text-zinc-400 hover:text-zinc-200">
                     <Maximize className="size-5" />
