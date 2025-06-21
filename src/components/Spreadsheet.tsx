@@ -24,7 +24,7 @@ export function Spreadsheet({ data }: SpreadsheetProps) {
         className='ht-theme-main-dark-auto'
         data={data}
         rowHeaders={true}
-        colHeaders={data.length > 0 ? Object.keys(data[0]) : []}
+        colHeaders={data ? data.length > 0 ? Object.keys(data[0]) : [] : []}
         height="100%"
         licenseKey="non-commercial-and-evaluation"
         contextMenu={true}

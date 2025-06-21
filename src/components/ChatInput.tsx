@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Square, ArrowUp, Paperclip } from 'lucide-react';
+import { ArrowUp, Paperclip } from 'lucide-react';
 
 interface ChatInputProps {
   onSendMessage: (content: string) => void;
