@@ -5,7 +5,7 @@ import { Header } from '@/components/Header';
 import { ChatPanel } from '@/components/ChatPanel';
 import { DocumentViewerPanel } from '@/components/DocumentViewer';
 
-import { CanvasDataContext, CanvasDispatchContext, DocumentViewerAction } from '@/app/contexts/canvasDataContext';
+import { CanvasDataContext, CanvasDispatchContext, DocumentViewerAction } from '@/contexts/canvasDataContext';
 
 export interface Message {
   id: string;
@@ -132,7 +132,7 @@ export default function Home() {
               }
             });
 
-            dispatch({ type: 'set', payload: true });
+            // dispatch({ type: 'set', payload: true });
 
             setTimeout(() => {
               setMessages(prev => prev.map(msg =>

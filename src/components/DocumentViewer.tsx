@@ -3,11 +3,24 @@
 import { DocumentHeader } from '@/components/DocumentHeader';
 import { Spreadsheet } from '@/components/Spreadsheet';
 
-
 import { motion, AnimatePresence } from "framer-motion";
 
+type documentMetadata = {
+  rect: {
+    width: number;
+    height: number;
+    top: number;
+    bottom: number;
+    right: number;
+    left: number;
+  },
+  refElementProperties: {
+    borderRadius: string | number;
+  };
+}
+
 interface DocumentViewerPanelProps {
-  documentMetadata: unknown | null;
+  documentMetadata: documentMetadata | null;
   isVisible: boolean;
   document: {
     title: string;
@@ -19,35 +32,47 @@ interface DocumentViewerPanelProps {
 }
 
 export function DocumentViewerPanel({ documentMetadata, isVisible, document, onClose }: DocumentViewerPanelProps) {
-  if (!isVisible || !document) return null;
+  if (!isVisible || !document || !documentMetadata) return null;
 
   return (
     <AnimatePresence>
       <motion.div
-        layout
-        layoutId="spreadsheet-box"
         initial={{
-          width: documentMetadata ? (documentMetadata as { width: number }).width : '100%',
-          height: documentMetadata ? (documentMetadata as { height: number }).height : '100%',
-          x: documentMetadata ? (documentMetadata as { x: number }).x : 0,
-          y: documentMetadata ? (documentMetadata as { y: number }).y : 0,
-          // scale: 0.5,
+          width: documentMetadata.rect.width,
+          height: documentMetadata.rect.height,
+          top: documentMetadata.rect.top,
+          bottom: documentMetadata.rect.bottom,
+          right: documentMetadata.rect.right,
+          left: documentMetadata.rect.left,
+          borderRadius: "10%",
         }}
         animate={{
-          height: '100vh',
-          width: '70%',
-          right: 0,
+          opacity: 1,
+          width: "70vw",
+          height: "100vh",
+          left: `calc(100% - 70vw)`,
+          bottom: 0,
           top: 0,
-          scale: 1,
-          position: 'absolute',
+          right: 0,
+          borderRadius: 0,
+        }}
+        style={{
+          position: 'fixed',
+          zIndex: 1000,
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
         }}
         transition={{ duration: 2, ease: 'easeInOut' }}
         // className="w-5/7 bg-zinc-800 border-l border-zinc-700 flex flex-col transform transition-transform duration-300 ease-in-out">
-        className="w-5/7 bg-zinc-800 border-l border-zinc-700 flex flex-col">
+        className=" bg-zinc-800 border-l border-zinc-700 flex flex-col">
         <DocumentHeader
           title={document.title}
           subtitle={document.subtitle}
+          data={[]}
           onClose={onClose}
+          isDocumentVisible={isVisible}
+          isCreating={false} // Assuming this is not creating, adjust as needed
         />
         <div className="flex-1 overflow-hidden">
           <Spreadsheet data={document.data} />

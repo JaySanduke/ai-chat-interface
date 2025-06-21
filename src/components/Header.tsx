@@ -4,17 +4,17 @@ import { Plus, Square, Triangle } from 'lucide-react';
 
 export function Header() {
   return (
-    <header className="absolute left-0 w-full h-16 px-4 flex items-center justify-between bg-transparent">
+    <header className="fixed z-10 left-0 w-full h-16 px-4 flex items-center justify-between bg-transparent">
       <div className="flex items-center gap-2">
-        <Button variant="outline" className="bg-transparent hover:bg-transparent border-zinc-700 hover:border-zinc-300 text-zinc-300 hover:text-zinc-100 ease-in-out duration-300">
+        <Button variant="outline" className="bg-zinc-950 hover:bg-transparent border-zinc-700 hover:border-zinc-300 text-zinc-300 hover:text-zinc-100 ease-in-out duration-300">
           <Square className="h-4 w-4" />
         </Button>
-        <Button variant="outline" className="bg-transparent hover:bg-transparent border-zinc-700 hover:border-zinc-300 text-zinc-300 hover:text-zinc-100 ease-in-out duration-300">
+        <Button variant="outline" className="bg-zinc-950 hover:bg-transparent border-zinc-700 hover:border-zinc-300 text-zinc-300 hover:text-zinc-100 ease-in-out duration-300">
           <Plus className="h-4 w-4" />
         </Button>
 
         <Select defaultValue="gpt-4">
-          <SelectTrigger className="w-32 h-8 bg-transparent border-zinc-700 hover:border-zinc-300 text-zinc-300 hover:text-zinc-100 ease-in-out duration-300">
+          <SelectTrigger className="w-32 h-8 bg-zinc-950 border-zinc-700 hover:border-zinc-300 text-zinc-300 hover:text-zinc-100 ease-in-out duration-300">
             <SelectValue placeholder="Chat model" />
           </SelectTrigger>
           <SelectContent className="bg-zinc-700 border-zinc-700">
@@ -24,7 +24,7 @@ export function Header() {
         </Select>
 
         <Select defaultValue="private">
-          <SelectTrigger className="w-auto h-8 bg-transparent border-zinc-700 hover:border-zinc-300 text-zinc-300 hover:text-zinc-100 ease-in-out duration-300">
+          <SelectTrigger className="w-auto h-8 bg-zinc-950 border-zinc-700 hover:border-zinc-300 text-zinc-300 hover:text-zinc-100 ease-in-out duration-300">
             <SelectValue placeholder="Private" />
           </SelectTrigger>
           <SelectContent className="bg-zinc-900 border-zinc-700">

@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react';
 import { Message } from '@/app/page';
 import { MessageBubble } from '@/components/MessageBubble';
-
 interface MessageListProps {
   messages: Message[];
 }

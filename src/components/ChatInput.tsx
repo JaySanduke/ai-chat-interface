@@ -30,7 +30,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
   return (
     <>
       {/* <div className="p-4 border-t border-zinc-800"> */}
-      <form onSubmit={handleSubmit} className="rounded-2xl bg-transparent w-full mx-auto">
+      <form onSubmit={handleSubmit} className="z-10 rounded-2xl bg-transparent w-full mx-auto">
         <div className="border border-zinc-700 focus-within:ring-2 focus-within:ring-zinc-200 focus-within:ring-offset-3 focus-within:ring-offset-zinc-900 duration-[280] ease-in-out rounded-2xl bg-zinc-900">
           <div className='p-2'>
             <Textarea
